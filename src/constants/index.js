@@ -36,3 +36,4 @@ export {
 } from './default-settings';
 export {VizColorPalette, DataVizColors} from './custom-color-ranges';
 export {COLOR_RANGES, DefaultColorRange} from './color-ranges';
+export {default as ActionTypes} from './action-types';

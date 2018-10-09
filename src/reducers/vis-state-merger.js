@@ -240,6 +240,7 @@ export function mergeInteractionTooltipConfig(state, tooltipConfig = {}) {
 
   return {mergedTooltip, unmergedTooltip};
 }
+
 /**
  * Merge layerBlending with saved
  *
@@ -401,6 +402,9 @@ export function validateLayerWithData({fields, id: dataId}, savedLayer, layerCla
     savedLayer.config.textLabel
   ) : newLayer.config.textLabel;
 
+  // keep layer ui state
+  const isConfigActive = savedLayer.config.isConfigActive;
+
   // copy visConfig over to emptyLayer to make sure it has all the props
   const visConfig = newLayer.copyLayerConfig(
     newLayer.config.visConfig,
@@ -412,6 +416,7 @@ export function validateLayerWithData({fields, id: dataId}, savedLayer, layerCla
     columns,
     visConfig,
     textLabel,
+    isConfigActive,
     ...foundVisualChannelConfigs
   });
 
@@ -458,10 +463,10 @@ export function validateFilterWithData({fields, allData}, filter) {
 
     matchedFilter = matcheAxis
       ? {
-          ...matchedFilter,
-          yAxis: matcheAxis,
-          ...getFilterPlot({...matchedFilter, yAxis: matcheAxis}, allData)
-        }
+        ...matchedFilter,
+        yAxis: matcheAxis,
+        ...getFilterPlot({...matchedFilter, yAxis: matcheAxis}, allData)
+      }
       : matchedFilter;
   }
 
